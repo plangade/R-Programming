@@ -1,0 +1,44 @@
+# R pie Chart
+
+## Simple Pie Chart
+#### Create data for the graph.
+x<-c(21,62,10,53)
+labels<-c("New York","Dallas","Seattle","Austin")
+
+#### Give the chart file a name.
+png(file="City.jpg")
+
+#### Plot the chart.
+pie(x,labels, main = "City Names")
+
+#### Save the file.
+dev.off()
+
+
+
+## Pie Chart with title and colors 
+
+percentdist<-round(x*100/(sum(x)))
+
+labels<-paste(labels,percentdist,"%",sep=" ")# ad % to labels  
+png(file="CityWithPercent.jpg")
+pie(x,labels,main="Pie Chart for Cities", col=rainbow(length(x)))
+dev.off()
+
+
+## Pie Chart with title, colors and legend 
+
+
+png(file="CityWithLegend.jpg")
+pie(x,labels,main="Pie Chart for Cities", col=rainbow(length(x)))
+legend("topright",labels,cex=0.8, fill=rainbow(length(x)))
+dev.off()
+
+
+
+##3D Pie Chart
+library(plotrix)
+png(file="3D Pie Chart.jpg")
+pie3D(x,labels=labels,explode = 0.1, main = "Pie Chart in 3D ")
+dev.off()
+
