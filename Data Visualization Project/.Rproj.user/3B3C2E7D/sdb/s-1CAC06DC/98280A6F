@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "# suppress warnings\noptions(warning=FALSE)\n\nlibrary(ggplot2)\nlibrary(data.table)\nlibrary(ggthemes)\nlibrary(plotly)\n\n\n#Import the ggplot2 data.table libraries and use fread to load the csv file 'Economist_Assignment_Data.csv' \n#df <- read.csv('Economist_Assignment_Data.csv')\ndf <- fread('Economist_Assignment_Data.csv',drop=1)\n\n#Check the head of df\nhead(df)\nstr(df)\n\n#create scatter plot\npl <- ggplot(df, aes(x=CPI,y=HDI,color=Region))+geom_point(shape = 1, size = 3)\nprint(pl)\n\n#Add trend line\npl2 <- pl + geom_smooth(aes(group=1), method='lm',formula = y~log(x),se=FALSE,color='red')\nprint(pl2)\n\n#Adding label for subset countries\npointsToLabel <- c(\"Russia\", \"Venezuela\", \"Iraq\", \"Myanmar\", \"Sudan\",\n                   \"Afghanistan\", \"Congo\", \"Greece\", \"Argentina\", \"Brazil\",\n                   \"India\", \"Italy\", \"China\", \"South Africa\", \"Spane\",\n                   \"Botswana\", \"Cape Verde\", \"Bhutan\", \"Rwanda\", \"France\",\n                   \"United States\", \"Germany\", \"Britain\", \"Barbados\", \"Norway\", \"Japan\",\n                   \"New Zealand\", \"Singapore\")\n\npl3 <- pl2 + geom_text(aes(label=Country), color = 'gray20', data=subset(df,Country %in% pointsToLabel,check_overlap=TRUE))\nprint(pl3)\n\n#Adding theme\npl4 <- pl3+theme_bw()\nprint(pl4)\npl5 <- pl4 + \n  scale_x_continuous(name=\"Corruption Perceptions Index,2011(10=least corrupt)\",limits=c(0.9,10.5),breaks=1:10) +\n  scale_y_continuous(name='Human Development Index, 2011(1=Best)',limits=c(0.2,1.0)) + \n  ggtitle('Corruption and Human Development')\n\nprint(pl5)\n\n#Adding theme from ggthemes\npl6 <- pl5 + theme_economist_white()\nprint(pl6)\n\n#interactive visualization using plotly\nprint(ggplotly(pl6))\n",
+    "created" : 1522123362885.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2482789649",
+    "id" : "98280A6F",
+    "lastKnownWriteTime" : 1522129052,
+    "last_content_update" : 1522129052171,
+    "path" : "P:/Courses/R/udemy/Data Visualization Project/Economist.R",
+    "project_path" : "Economist.R",
+    "properties" : {
+        "notebook_format" : "html_document",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
